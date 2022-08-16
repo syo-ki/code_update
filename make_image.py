@@ -689,10 +689,13 @@ def create_png_composite():
                     read_p = os.path.join(p, f_n)
                     new_f_n = read_p.replace(".CTL",".png")
                     save_p = f"./well_png/{date}/{new_f_n}"
+                    os.makedirs(f"./well_png/{date}",exist_ok=True)
                     shutil.copyfile(read_p, save_p)
             read_p = os.path.join(p,"qc/composite.png")
             if os.path.exists(read_p):
-                save_p = f"./composite_img/{date}/{plate_n} + .png"
+                new_f_n = plate_n + ".png"
+                save_p = f"./composite_img/{date}/{new_f_n}"
+                os.makedirs(f"./composite_img/{date}",exist_ok=True)
                 shutil.copyfile(read_p, save_p)
             else:
                 print(f"can't find composite image of {plate_n}")
