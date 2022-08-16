@@ -10,13 +10,7 @@ import cv2,os
 import shutil
 from PIL import Image
 
-    """
-    Parameters
-    ----------
-    Returns
-    -------
 
-    """
 
 def make_samesize_image_for_truespot(img_size=(64,64)):
     """
