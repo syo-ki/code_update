@@ -684,6 +684,7 @@ def create_png_composite():
         for plate_n in plate_number:
             p = os.path.join(path, plate_n)
             file_name = os.listdir(p)
+            print(file_name)
             for f_n in file_name:
                 if f_n[-5:-1] == ".CTL":
                     read_p = os.path.join(p, f_n)
