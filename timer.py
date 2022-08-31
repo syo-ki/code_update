@@ -1,18 +1,17 @@
 import os
 import pandas as pd
 import torch
-from xml_to_YOLOformat import date_completed
+# from xml_to_YOLOformat import date_completed
 from sklearn.metrics import confusion_matrix
 import seaborn as sn
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+# os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
-model_path = "./train_results/nano_train/weights/best.pt"
-model = torch.hub.load('/home/ec2-user/yolov5', 'custom',path = model_path, source = "local")
-model2 = torch.hub.load('/home/ec2-user/yolov5', 'custom',path = model_path, source = "local")
+model_path = "./weights/best.pt"
+model = torch.hub.load('/home/kisyo/yolov5', 'custom',path = model_path, source = "local")
+model2 = torch.hub.load('/home/kisyo/yolov5', 'custom',path = model_path, source = "local")
 model2.conf = 0.002
 # model.load_state_dict(torch.load(model_path)['model'].state_dict())
 
@@ -101,11 +100,7 @@ def detect_number2(n_con,well_A,well_B,p_con):
                 else:return int(2)#再検査
 
 
-date_completed = ["2018-04-01",
-                  "2018-12-07",
-                  "2019-04-08",
-                  "2019-08-01"
-                  ]
+date_completed = ["2022-05-23","2022-05-25","2022-06-18","2022-06-19","2022-06-20"]
 
 first_pic = ['A1.png', 'A10.png', 'A11.png', 'A12.png', 'A2.png', 'A3.png', 'A4.png', 'A5.png', 'A6.png', 'A7.png', 'A8.png', 'A9.png',
             'E1.png', 'E10.png', 'E11.png', 'E12.png', 'E2.png', 'E3.png', 'E4.png', 'E5.png', 'E6.png', 'E7.png', 'E8.png', 'E9.png']
@@ -122,7 +117,7 @@ for date in date_completed:
         df = pd.read_csv(csv_path)
         for f_name in first_pic:
             if f_name not in files:
-                    continue
+                continue
             time_p1 = time.time()
             print(f"opening {root} folder")
             true = detect_number(*get_true(f_name, df))
@@ -142,7 +137,6 @@ print(f"need {(time_for_read/count) * 1000} ms for read one sample")
 ###################
 #####結果一覧#######
 ####################
-
 # classes = ("negative","positive","need to review","Undecidable")
 # y_true = np.array(y_true)
 # y_pred = np.array(y_pred)
